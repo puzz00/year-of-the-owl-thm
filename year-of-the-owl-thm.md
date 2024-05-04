@@ -14,7 +14,7 @@ The results show us that this appears to be a windows machine because we see net
 
 ![nmap1](/images/1.png)
 
-Since SMB is running, we can try a *null session* attack using `sudo smbmap -H 10.10.187.145` but this does not work. We cannot connect using *rpcclient* via `sudo rpcclient -U'%' 10.10.187.145'` without valid creds, either :frowining_face:
+Since SMB is running, we can try a *null session* attack using `sudo smbmap -H 10.10.187.145` but this does not work. We cannot connect using *rpcclient* via `sudo rpcclient -U'%' 10.10.187.145'` without valid creds, either :frowning_face:
 
 ![nmap2](/images/2.png)
 
@@ -158,15 +158,15 @@ In windows, passwords for users are hashed and stored in the SAM database. This 
 gci -Force '$Recycle.Bin\S-1-5-21<SNIP>1001'
 ```
 
-[manual2](/images/20.png)
+![manual2](/images/20.png)
 
 There is a feeling of relief - the beginning of the end is in sight...
 
 Since we have found what appears to be a backup copy of the SAM database along with the syskey, we can transfer them to the `C:\Temp` directory we created so we can then download them to our local attacking machine and attempt to get the hashes from them.
 
-[manual3](/images/21.png)
+![manual3](/images/21.png)
 
-[manual4](/images/22.png)
+![manual4](/images/22.png)
 
 ## Getting System
 
@@ -176,7 +176,7 @@ We can use `secretsdump.py` from [impacket](https://github.com/fortra/impacket/t
 sudo python3 /usr/share/doc/python3-impacket/examples/secretsdump.py -sam sam.bak -system system.bak local
 ```
 
-[system1](/images/23.png)
+![system1](/images/23.png)
 
 This is great because we now have the full NTLM hash for the Administrator user.
 
